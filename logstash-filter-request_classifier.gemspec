@@ -2,9 +2,9 @@ Gem::Specification.new do |s|
   s.name          = 'logstash-filter-request_classifier'
   s.version       = '0.1.0'
   s.licenses      = ['Apache License (2.0)']
-  s.summary       = 'TODO: Write a short summary, because Rubygems requires one.'
-  s.description   = 'TODO: Write a longer description or delete this line.'
-  s.homepage      = 'TODO: Put your plugin''s website or public repo URL here.'
+  s.summary       = 'Logstash filter plugin to classify requests from any field'
+  s.description   = 'Logstash filter plugin to classify requests from any field. Now, fixed types are setup in the code.'
+  s.homepage      = 'https://github.com/aalmazanarbs'
   s.authors       = ['Alejandro Almazán Cabo']
   s.email         = 'aalmazan@autentia.com'
   s.require_paths = ['lib']

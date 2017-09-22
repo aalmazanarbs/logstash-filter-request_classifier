@@ -1,6 +1,8 @@
-# Logstash Plugin
+# Logstash Filter Plugin
 
-This is a plugin for [Logstash](https://github.com/elastic/logstash).
+This is a filter plugin for [Logstash](https://github.com/elastic/logstash).
+
+With this plugin you can classify requested resources based on url.
 
 It is fully free and fully open source. The license is Apache 2.0, meaning you are pretty much free to use it however you want in whatever way.
 
@@ -17,12 +19,10 @@ Need help? Try #logstash on freenode IRC or the https://discuss.elastic.co/c/log
 
 ## Developing
 
-### 1. Plugin Developement and Testing
+### 1. Filter Plugin Developement and Testing
 
 #### Code
 - To get started, you'll need JRuby with the Bundler gem installed.
-
-- Create a new plugin or clone and existing from the GitHub [logstash-plugins](https://github.com/logstash-plugins) organization. We also provide [example plugins](https://github.com/logstash-plugins?query=example).
 
 - Install dependencies
 ```sh
@@ -31,7 +31,7 @@ bundle install
 
 #### Test
 
-- Update your dependencies
+- Update dependencies
 
 ```sh
 bundle install
@@ -43,37 +43,24 @@ bundle install
 bundle exec rspec
 ```
 
-### 2. Running your unpublished Plugin in Logstash
-
-#### 2.1 Run in a local Logstash clone
-
-- Edit Logstash `Gemfile` and add the local plugin path, for example:
-```ruby
-gem "logstash-filter-awesome", :path => "/your/local/logstash-filter-awesome"
-```
-- Install plugin
-```sh
-bin/logstash-plugin install --no-verify
-```
-- Run Logstash with your plugin
-```sh
-bin/logstash -e 'filter {awesome {}}'
-```
-At this point any modifications to the plugin code will be applied to this local Logstash setup. After modifying the plugin, simply rerun Logstash.
+### 2. Running unpublished Filter Plugin in Logstash
 
 #### 2.2 Run in an installed Logstash
 
-You can use the same **2.1** method to run your plugin in an installed Logstash by editing its `Gemfile` and pointing the `:path` to your local plugin development directory or you can build the gem and install it using:
+To run the filter plugin follow this steps:
 
 - Build your plugin gem
 ```sh
-gem build logstash-filter-awesome.gemspec
+gem build logstash-filter-request_classifier.gemspec
 ```
 - Install the plugin from the Logstash home
 ```sh
-bin/logstash-plugin install /your/local/plugin/logstash-filter-awesome.gem
+bin/logstash-plugin install logstash-filter-request_classifier.gemspec
 ```
-- Start Logstash and proceed to test the plugin
+- Run Logstash with the plugin
+```sh
+./logstash -e 'input { stdin{} } filter { request_classifier { url => "message" } } output {stdout { codec => rubydebug }}'
+```
 
 ## Contributing
 

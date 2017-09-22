@@ -3,19 +3,19 @@ require_relative '../spec_helper'
 require "logstash/filters/request_classifier"
 
 describe LogStash::Filters::RequestClassifier do
-  describe "Set to Hello World" do
+  describe "Classify request image" do
     let(:config) do <<-CONFIG
       filter {
         request_classifier {
-          message => "Hello World"
+          url => "message"
         }
       }
     CONFIG
     end
 
-    sample("message" => "some text") do
-      expect(subject).to include("message")
-      expect(subject.get('message')).to eq('Hello World')
+    sample("message" => ".gif") do
+      expect(subject).to include("resource_type")
+      expect(subject.get('resource_type')).to eq('image')
     end
   end
 end
